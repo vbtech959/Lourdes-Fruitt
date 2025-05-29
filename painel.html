@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lourdes Fruitt - Painel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
 
@@ -22,7 +20,6 @@
   </header>
 
   <main class="painel-container">
-
     <section id="login-section">
       <h2>Login do Painel</h2>
       <input type="password" id="senha-input" placeholder="Digite a senha" />
@@ -46,15 +43,12 @@
           <input type="number" id="produto-preco" placeholder="Preço (R$)" step="0.01" min="0" required />
           <button type="submit">Adicionar Produto</button>
         </form>
-
         <div id="lista-produtos"></div>
       </div>
 
       <div class="tab-content" id="agendamentos-tab" style="display:none;">
         <h3>Agendamentos</h3>
-        <div id="lista-agendamentos">
-          <p>Não há agendamentos para mostrar.</p>
-        </div>
+        <div id="lista-agendamentos"></div>
       </div>
 
       <div class="tab-content" id="estoque-tab" style="display:none;">
@@ -62,7 +56,6 @@
         <div id="estoque-lista"></div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -71,6 +64,44 @@
 
   <script src="script.js"></script>
   <script src="painel.js"></script>
-</body>
+  <script>
+    // Carregar agendamentos com o campo "produto"
+    function carregarAgendamentos() {
+      const container = document.getElementById("lista-agendamentos");
+      const agendamentos = JSON.parse(localStorage.getItem("agendamentos")) || [];
 
+      if (agendamentos.length === 0) {
+        container.innerHTML = "<p>Não há agendamentos para mostrar.</p>";
+        return;
+      }
+
+      container.innerHTML = "";
+      agendamentos.forEach((ag, index) => {
+        const div = document.createElement("div");
+        div.className = "agendamento-item";
+        div.innerHTML = `
+          <p><strong>Nome:</strong> ${ag.nome}</p>
+          <p><strong>Endereço:</strong> ${ag.endereco}</p>
+          <p><strong>Data:</strong> ${ag.data}</p>
+          <p><strong>Produto desejado:</strong> ${ag.produto || "Não informado"}</p>
+          <p><strong>Observações:</strong> ${ag.obs || "Nenhuma"}</p>
+          <hr />
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Exibe agendamentos ao fazer login
+    document.getElementById("btn-login").addEventListener("click", () => {
+      const senha = document.getElementById("senha-input").value;
+      if (senha === "1234") {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        carregarAgendamentos();
+      } else {
+        document.getElementById("login-message").textContent = "Senha incorreta.";
+      }
+    });
+  </script>
+</body>
 </html>

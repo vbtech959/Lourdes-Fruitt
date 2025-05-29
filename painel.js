@@ -165,6 +165,7 @@ function renderAgendamentos() {
       <p><strong>Nome:</strong> ${agendamento.nome}</p>
       <p><strong>Data:</strong> ${agendamento.data}</p>
       <p><strong>Endereço:</strong> ${agendamento.endereco || '-'}</p>
+      <p><strong>Produto desejado para entrega:</strong> ${agendamento.produto || '-'}</p>
       <p><strong>Observações:</strong> ${agendamento.obs || '-'}</p>
       <button class="remove-ag" data-index="${index}">Remover</button>
     `;

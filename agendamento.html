@@ -19,7 +19,6 @@
       <a href="painel.html">Painel</a>
       <a href="contato.html">Contato</a>
     </nav>
-    
   </header>
 
   <main class="agendamento-container">
@@ -41,6 +40,11 @@
       </div>
 
       <div class="form-group">
+        <label for="produto">Produto desejado para entrega:</label>
+        <input type="text" id="produto" name="produto" placeholder="Ex: Cesta de frutas, sabonete artesanal..." required />
+      </div>
+
+      <div class="form-group">
         <label for="obs">Observações:</label>
         <textarea id="obs" name="obs" placeholder="Detalhes adicionais..."></textarea>
       </div>
@@ -55,7 +59,6 @@
 
   <script src="script.js"></script>
   <script>
-    // Código para tratar o agendamento e salvar no localStorage
     const form = document.getElementById('form-agendamento');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -63,26 +66,21 @@
       const nome = form.nome.value.trim();
       const endereco = form.endereco.value.trim();
       const data = form.data.value;
+      const produto = form.produto.value.trim();
       const obs = form.obs.value.trim();
 
-      if (!nome || !endereco || !data) {
+      if (!nome || !endereco || !data || !produto) {
         alert('Por favor, preencha todos os campos obrigatórios.');
         return;
       }
 
-      // Cria o objeto agendamento
-      const novoAgendamento = { nome, endereco, data, obs };
+      const novoAgendamento = { nome, endereco, data, produto, obs };
 
-      // Pega os agendamentos salvos no localStorage
       let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
       agendamentos.push(novoAgendamento);
-
-      // Salva novamente no localStorage
       localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
 
       alert('Agendamento realizado com sucesso!');
-
-      // Limpa o formulário
       form.reset();
     });
   </script>
