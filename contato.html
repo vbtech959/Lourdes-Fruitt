@@ -117,21 +117,22 @@
   <button class="theme-toggle" title="Alternar tema">🌓</button>
   <h1>Fale Conosco</h1>
 
-  <form onsubmit="enviarMensagem(event)">
-    <label for="nome">Nome</label>
-    <input type="text" id="nome" name="nome" required />
+<form action="https://formsubmit.co/lourdesfruitt@gmail.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="https://seusite.com/obrigado.html">
 
-    <label for="email">E-mail</label>
-    <input type="email" id="email" name="email" required />
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome" required>
 
-    <label for="assunto">Assunto</label>
-    <input type="text" id="assunto" name="assunto" required />
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
 
-    <label for="mensagem">Mensagem</label>
-    <textarea id="mensagem" name="mensagem" required></textarea>
+  <label for="mensagem">Mensagem:</label>
+  <textarea id="mensagem" name="mensagem" required></textarea>
 
-    <button type="submit">Enviar Mensagem</button>
-  </form>
+  <button type="submit">Enviar</button>
+</form>
+
 
   <a class="back-link" href="index.html">← Voltar ao catálogo</a>
 
