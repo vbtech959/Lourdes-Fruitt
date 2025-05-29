@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contato - Lourdes Frutti</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #28a745;
+    }
+
+    form label {
+      font-weight: bold;
+      display: block;
+      margin-top: 16px;
+      color: #555;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button[type="submit"] {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      margin-top: 20px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: #218838;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      text-decoration: none;
+      color: #28a745;
+      font-weight: 600;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.4rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    /* Tema escuro */
+    body.dark {
+      background: #1a1a1a;
+      color: #eee;
+      box-shadow: 0 0 10px #111;
+    }
+
+    body.dark h1 {
+      color: #8df7af;
+    }
+
+    body.dark input,
+    body.dark textarea {
+      background: #2a2a2a;
+      color: #eee;
+      border: 1px solid #555;
+    }
+
+    body.dark label {
+      color: #ccc;
+    }
+
+    body.dark .back-link {
+      color: #8df7af;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" title="Alternar tema">🌓</button>
+  <h1>Fale Conosco</h1>
+
+  <form onsubmit="enviarMensagem(event)">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" required />
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="assunto">Assunto</label>
+    <input type="text" id="assunto" name="assunto" required />
+
+    <label for="mensagem">Mensagem</label>
+    <textarea id="mensagem" name="mensagem" required></textarea>
+
+    <button type="submit">Enviar Mensagem</button>
+  </form>
+
+  <a class="back-link" href="index.html">← Voltar ao catálogo</a>
+
+  <script>
+    // Tema claro/escuro
+    const toggleBtn = document.querySelector('.theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('contatoTema', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Carregar tema salvo
+    if (localStorage.getItem('contatoTema') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    // Simular envio
+    function enviarMensagem(event) {
+      event.preventDefault();
+      alert("Mensagem enviada com sucesso! Em breve retornaremos.");
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>

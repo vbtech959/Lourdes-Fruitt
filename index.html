@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lourdes Fruitt</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <button class="theme-toggle" aria-label="Alternar tema">🌓</button>
+  <button class="cart-toggle" aria-label="Abrir carrinho">🛒 <span id="cart-count">0</span></button>
+
+  <header>
+    <h1>Lourdes Fruitt</h1>
+    <nav>
+      <a href="index.html">Catálogo</a>
+      <a href="agendamento.html">Agendamento</a>
+      <a href="painel.html">Painel</a>
+      <a href="contato.html">Contato</a>
+
+    </nav>
+
+  </header>
+
+  <main class="catalogo">
+
+    <h2>Produtos Artesanais</h2>
+    <div class="produtos">
+      <div class="produto" data-id="1" data-nome="Cesta artesanal" data-preco="40"
+        data-desc="Cesta feita à mão com produtos naturais e artesanais. Ideal para presentear.">
+        <img src="imagens/cesta.jpg" alt="Cesta artesanal" />
+        <h3>Cesta artesanal</h3>
+        <p>R$ 40,00</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="2" data-nome="Vela aromática" data-preco="25"
+        data-desc="Vela com aroma suave que cria um ambiente relaxante e acolhedor.">
+        <img src="imagens/vela.jpg" alt="Vela aromática" />
+        <h3>Vela aromática</h3>
+        <p>R$ 25,00</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="3" data-nome="Caixa artesanal" data-preco="35"
+        data-desc="Caixa feita artesanalmente para guardar seus objetos com estilo e personalidade.">
+        <img src="imagens/caixa.jpg" alt="Caixa artesanal" />
+        <h3>Caixa artesanal</h3>
+        <p>R$ 35,00</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="4" data-nome="Sabonete artesanal" data-preco="15"
+        data-desc="Sabonete natural com ingredientes orgânicos para uma pele suave e perfumada.">
+        <img src="imagens/sabonete.jpg" alt="Sabonete artesanal" />
+        <h3>Sabonete artesanal</h3>
+        <p>R$ 15,00</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <h2>Hortifrutti</h2>
+    <div class="produtos">
+      <div class="produto" data-id="5" data-nome="Maçã orgânica" data-preco="5"
+        data-desc="Maçã cultivada sem agrotóxicos, fresca e crocante, direto da fazenda para sua mesa.">
+        <img src="imagens/maca.jpg" alt="Maçã orgânica" />
+        <h3>Maçã orgânica</h3>
+        <p>R$ 5,00 / kg</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="6" data-nome="Alface crespa" data-preco="3"
+        data-desc="Alface fresca e crocante, cultivada com cuidado para garantir sabor e qualidade.">
+        <img src="imagens/alface.jpg" alt="Alface crespa" />
+        <h3>Alface crespa</h3>
+        <p>R$ 3,00 / unidade</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="7" data-nome="Cenoura" data-preco="4"
+        data-desc="Cenoura orgânica, rica em nutrientes, perfeita para saladas e sucos naturais.">
+        <img src="imagens/cenoura.jpg" alt="Cenoura" />
+        <h3>Cenoura</h3>
+        <p>R$ 4,00 / kg</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+      <div class="produto" data-id="8" data-nome="Tomate" data-preco="6"
+        data-desc="Tomate fresco e saboroso, cultivado sem uso de químicos para máxima qualidade.">
+        <img src="imagens/tomate.jpg" alt="Tomate" />
+        <h3>Tomate</h3>
+        <p>R$ 6,00 / kg</p>
+        <button class="add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <div id="cart" class="cart">
+      <button class="cart-close" aria-label="Fechar carrinho">×</button>
+      <h2>Carrinho</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total">Total: R$ 0,00</div>
+      <div class="cart-actions">
+        <button id="clear-cart-btn">Esvaziar Carrinho</button>
+        <button id="checkout-btn">Finalizar Compra</button>
+      </div>
+    </div>
+
+    <!-- Modal do produto -->
+    <div id="product-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <button id="modal-close" class="modal-close" aria-label="Fechar modal">×</button>
+        <img id="modal-img" src="" alt="" />
+        <h3 id="modal-name"></h3>
+        <p id="modal-desc"></p>
+        <p id="modal-price"></p>
+        <button id="modal-add-cart-btn">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Lourdes Frutti</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

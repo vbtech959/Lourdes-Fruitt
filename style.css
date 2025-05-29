@@ -1,0 +1,454 @@
+/* Tema claro por padrão */
+:root {
+  --verde-claro: #178509;
+  --verde-escuro: #4a752c;
+  --cinza-claro: #f9f9f9;
+  --cinza-borda: #ddd;
+  --fundo-produto: #ffffff;
+  --cor-texto: #333;
+  --fonte: 'Segoe UI', sans-serif;
+}
+
+/* Tema escuro via classe */
+body.dark-mode {
+  --verde-claro: #588e58;
+  --verde-escuro: #a8d47a;
+  --cinza-claro: #1a1a1a;
+  --cinza-borda: #444;
+  --fundo-produto: #2a2a2a;
+  --cor-texto: #939393;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fonte);
+  background-color: var(--cinza-claro);
+  color: var(--cor-texto);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Botão fixo alternar tema */
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: var(--verde-claro);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--verde-escuro);
+}
+
+/* Botão fixo do carrinho */
+.cart-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: var(--verde-claro);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+.cart-toggle:hover {
+  background-color: var(--verde-escuro);
+}
+
+/* Cabeçalho */
+header {
+  background-color: var(--verde-claro);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #d4f4b4;
+}
+
+/* Catálogo */
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.catalogo h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: var(--verde-escuro);
+  border-bottom: 2px solid var(--verde-claro);
+  padding-bottom: 5px;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.produto {
+  background: var(--fundo-produto);
+  padding: 15px;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.produto:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.produto img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.produto h3 {
+  margin-bottom: 10px;
+  color: var(--verde-escuro);
+}
+
+.produto p {
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: var(--verde-claro);
+}
+
+/* Botões de adicionar */
+.add-cart-btn {
+  cursor: pointer;
+  background-color: var(--verde-claro);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.add-cart-btn:hover {
+  background-color: var(--verde-escuro);
+}
+
+/* Carrinho */
+.cart {
+  position: fixed;
+  top: 60px;
+  right: -350px;
+  /* escondido fora da tela */
+  width: 320px;
+  max-height: 80vh;
+  background-color: var(--fundo-produto);
+  border: 1px solid var(--cinza-borda);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  z-index: 10000;
+}
+
+.cart.open {
+  right: 20px;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  float: right;
+  cursor: pointer;
+  color: var(--verde-escuro);
+}
+
+#cart-items {
+  margin-top: 30px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 10px 0;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-name {
+  flex: 1;
+}
+
+.cart-item-qty {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.cart-item-price {
+  font-weight: bold;
+  color: var(--verde-claro);
+}
+
+#cart-total {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: right;
+  color: var(--verde-escuro);
+}
+
+/* Botões dentro do carrinho */
+.cart-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-actions button {
+  background-color: var(--verde-claro);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 48%;
+}
+
+.cart-actions button:hover {
+  background-color: var(--verde-escuro);
+}
+
+/* Estilo do formulário de agendamento */
+.agendamento-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: var(--fundo-produto);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--cinza-borda);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.agendamento-container h2 {
+  color: var(--verde-escuro);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.agendamento-form .form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.agendamento-form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.agendamento-form input,
+.agendamento-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 5px;
+  background-color: var(--cinza-claro);
+  color: var(--cor-texto);
+}
+
+/* Painel de administração */
+.painel-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: var(--fundo-produto);
+  border-radius: 10px;
+  border: 1px solid var(--cinza-borda);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.painel-container h2 {
+  color: var(--verde-escuro);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.painel-login {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.painel-login input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--cinza-borda);
+  width: 200px;
+}
+
+.painel-login button {
+  margin-left: 10px;
+  padding: 10px 15px;
+}
+
+.painel-secoes {
+  display: none;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.painel-card {
+  background: var(--fundo-produto);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.painel-card:hover {
+  transform: translateY(-3px);
+}
+
+.painel-card h3 {
+  color: var(--verde-escuro);
+  margin-bottom: 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+#modal-add-cart-btn {
+  background-color: #2c8f2c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#modal-add-cart-btn:hover {
+  background-color: #237023;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: var(--verde-claro);
+  color: white;
+  margin-top: 40px;
+}
+
+/* Scroll dentro do carrinho */
+.cart::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart::-webkit-scrollbar-thumb {
+  background-color: var(--verde-escuro);
+  border-radius: 3px;
+}
+#login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px 20px;
+  background-color: var(--fundo-produto);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#login-section input,
+#login-section button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+#login-message {
+  margin-top: 10px;
+}

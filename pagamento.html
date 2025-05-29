@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pagamento - Lourdes Fruitt</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 480px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    color: #333;
+    position: relative;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #444;
+  }
+  .payment-methods {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .payment-methods button {
+    padding: 10px 20px;
+    border: 2px solid #28a745;
+    background: white;
+    color: #28a745;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .payment-methods button.active,
+  .payment-methods button:hover {
+    background: #28a745;
+    color: white;
+  }
+  .payment-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px #eee;
+    min-height: 260px;
+  }
+  #qrcode {
+    text-align: center;
+    margin: 15px 0;
+  }
+  .hidden {
+    display: none;
+  }
+  textarea, input[type=text], input[type=number], input[type=month] {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    margin-top: 8px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  label {
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+    color: #555;
+  }
+  button#pay-btn {
+    background: #28a745;
+    border: none;
+    color: white;
+    padding: 12px;
+    margin-top: 18px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+  button#pay-btn:hover {
+    background: #218838;
+  }
+  .info {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  a.back-btn {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #28a745;
+  }
+
+  /* Tema escuro */
+  body.dark {
+    background: #1a1a1a;
+    color: #eee;
+  }
+  body.dark h1 {
+    color: #fff;
+  }
+  body.dark .payment-methods button {
+    border-color: #eee;
+    color: #eee;
+    background: transparent;
+  }
+  body.dark .payment-methods button.active,
+  body.dark .payment-methods button:hover {
+    background: #28a745;
+    color: #fff;
+  }
+  body.dark .payment-section {
+    border-color: #444;
+    box-shadow: 0 0 10px #111;
+    background: #2c2c2c;
+  }
+  body.dark input,
+  body.dark textarea {
+    background: #444;
+    color: #eee;
+    border-color: #666;
+  }
+  body.dark label {
+    color: #ccc;
+  }
+  body.dark .info {
+    color: #aaa;
+  }
+  body.dark a.back-btn {
+    color: #8df7af;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: inherit;
+  }
+</style>
+</head>
+<body>
+  <button class="theme-toggle" title="Alternar tema">🌓</button>
+  <h1>Finalizar Pagamento</h1>
+
+  <div class="payment-methods">
+    <button id="btn-pix" class="active">Pix</button>
+    <button id="btn-boleto">Boleto</button>
+    <button id="btn-cartao">Cartão</button>
+  </div>
+
+  <div class="payment-section">
+
+    <!-- PIX -->
+    <div id="pix-section">
+      <p><strong>Chave Pix:</strong> <span id="pix-key">...</span></p>
+      <div id="qrcode"></div>
+      <button id="copy-pix-btn" type="button">Copiar Chave Pix</button>
+      <p class="info">Use o QR Code ou copie a chave para pagar no seu app do banco.</p>
+    </div>
+
+    <!-- BOLETO -->
+    <div id="boleto-section" class="hidden">
+      <p><strong>Linha Digitável do Boleto:</strong></p>
+      <textarea id="boleto-linha" readonly>34191.79001 01043.510047 91020.150008 4 84220000010000</textarea>
+      <button id="copy-boleto-btn" type="button">Copiar Linha Digitável</button>
+      <p class="info">Use essa linha para pagar em bancos, lotéricas ou apps.</p>
+    </div>
+
+    <!-- CARTÃO -->
+    <div id="cartao-section" class="hidden">
+      <form id="cartao-form" onsubmit="return false;">
+        <label for="nome-cartao">Nome no Cartão</label>
+        <input type="text" id="nome-cartao" placeholder="Nome completo" required />
+
+        <label for="num-cartao">Número do Cartão</label>
+        <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" title="Digite no formato 0000 0000 0000 0000" required />
+
+        <label for="validade-cartao">Validade</label>
+        <input type="month" id="validade-cartao" required />
+
+        <label for="cvv-cartao">CVV</label>
+        <input type="number" id="cvv-cartao" placeholder="123" maxlength="3" min="100" max="999" required />
+
+        <button id="pay-btn" type="submit">Pagar com Cartão</button>
+      </form>
+    </div>
+
+  </div>
+
+  <a href="index.html" class="back-btn">← Voltar ao catálogo</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    // Geração de chave Pix aleatória
+    function gerarChavePix() {
+      const tipos = ['email', 'telefone', 'aleatoria'];
+      const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+
+      if (tipo === 'email') {
+        const nomes = ['cliente', 'usuario', 'contato', 'comprador'];
+        const dom = ['gmail.com', 'hotmail.com', 'outlook.com'];
+        return nomes[Math.floor(Math.random() * nomes.length)] +
+          Math.floor(Math.random() * 9999) +
+          '@' +
+          dom[Math.floor(Math.random() * dom.length)];
+      } else if (tipo === 'telefone') {
+        return '+55 11 9' + (Math.floor(10000000 + Math.random() * 89999999));
+      } else {
+        return 'pix-' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+      }
+    }
+
+    // Copiar texto
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copiado para a área de transferência!');
+      }).catch(() => {
+        alert('Erro ao copiar.');
+      });
+    }
+
+    // Exibir seção
+    function showSection(id) {
+      ['pix-section', 'boleto-section', 'cartao-section'].forEach(sectionId => {
+        document.getElementById(sectionId).classList.toggle('hidden', sectionId !== id);
+      });
+      ['btn-pix', 'btn-boleto', 'btn-cartao'].forEach(btnId => {
+        document.getElementById(btnId).classList.toggle('active', btnId === 'btn-' + id.split('-')[0]);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const pixBtn = document.getElementById('btn-pix');
+      const boletoBtn = document.getElementById('btn-boleto');
+      const cartaoBtn = document.getElementById('btn-cartao');
+      const pixKeySpan = document.getElementById('pix-key');
+      const copyPixBtn = document.getElementById('copy-pix-btn');
+      const copyBoletoBtn = document.getElementById('copy-boleto-btn');
+      const payBtn = document.getElementById('pay-btn');
+      const cartaoForm = document.getElementById('cartao-form');
+
+      let chavePix = gerarChavePix();
+      pixKeySpan.textContent = chavePix;
+
+      // Gerar QR Code
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      QRCode.toCanvas(document.createElement('canvas'), chavePix)
+        .then(canvas => {
+          qrContainer.appendChild(canvas);
+        })
+        .catch(() => {
+          qrContainer.textContent = 'Erro ao gerar QR Code.';
+        });
+
+      pixBtn.addEventListener('click', () => showSection('pix-section'));
+      boletoBtn.addEventListener('click', () => showSection('boleto-section'));
+      cartaoBtn.addEventListener('click', () => showSection('cartao-section'));
+
+      copyPixBtn.addEventListener('click', () => {
+        copyText(chavePix);
+      });
+
+      copyBoletoBtn.addEventListener('click', () => {
+        const boletoText = document.getElementById('boleto-linha').value;
+        copyText(boletoText);
+      });
+
+      payBtn.addEventListener('click', () => {
+        if (cartaoForm.checkValidity()) {
+          alert('Pagamento com cartão simulado efetuado com sucesso!');
+        } else {
+          cartaoForm.reportValidity();
+        }
+      });
+
+      // Tema claro/escuro
+      const toggleBtn = document.querySelector('.theme-toggle');
+      function toggleTheme() {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        localStorage.setItem('pagamentoTema', isDark ? 'dark' : 'light');
+      }
+      function carregarTema() {
+        const saved = localStorage.getItem('pagamentoTema');
+        if (saved === 'dark') {
+          document.body.classList.add('dark');
+        }
+      }
+      toggleBtn.addEventListener('click', toggleTheme);
+      carregarTema();
+    });
+  </script>
+</body>
+</html>

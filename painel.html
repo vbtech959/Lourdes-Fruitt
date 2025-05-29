@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lourdes Fruitt - Painel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+  <header>
+    <h1>Lourdes Frutti</h1>
+    <nav>
+      <a href="index.html">Catálogo</a>
+      <a href="agendamento.html">Agendamento</a>
+      <a href="painel.html">Painel</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main class="painel-container">
+
+    <section id="login-section">
+      <h2>Login do Painel</h2>
+      <input type="password" id="senha-input" placeholder="Digite a senha" />
+      <button id="btn-login">Entrar</button>
+      <p id="login-message" class="error-message"></p>
+    </section>
+
+    <section id="dashboard" style="display:none;">
+      <h2>Painel Administrativo</h2>
+
+      <nav class="dashboard-nav">
+        <button data-tab="produtos" class="tab-btn active">Gerenciar Produtos</button>
+        <button data-tab="agendamentos" class="tab-btn">Agendamentos</button>
+        <button data-tab="estoque" class="tab-btn">Estoque</button>
+      </nav>
+
+      <div class="tab-content" id="produtos-tab">
+        <h3>Produtos</h3>
+        <form id="form-add-produto">
+          <input type="text" id="produto-nome" placeholder="Nome do produto" required />
+          <input type="number" id="produto-preco" placeholder="Preço (R$)" step="0.01" min="0" required />
+          <button type="submit">Adicionar Produto</button>
+        </form>
+
+        <div id="lista-produtos"></div>
+      </div>
+
+      <div class="tab-content" id="agendamentos-tab" style="display:none;">
+        <h3>Agendamentos</h3>
+        <div id="lista-agendamentos">
+          <p>Não há agendamentos para mostrar.</p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="estoque-tab" style="display:none;">
+        <h3>Estoque</h3>
+        <div id="estoque-lista"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Lourdes Frutti</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="painel.js"></script>
+</body>
+
+</html>
